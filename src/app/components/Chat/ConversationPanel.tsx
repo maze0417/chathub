@@ -79,17 +79,28 @@ const ConversationPanel: FC<Props> = (props) => {
             {mode === 'compact' && <SwitchBotDropdown excludeBotId={props.botId} index={props.index!} />}
           </div>
           <div className="flex flex-row items-center gap-3">
-            <img src={shareIcon} className="w-5 h-5 cursor-pointer" onClick={openShareDialog} />
+            <img
+              src={shareIcon}
+              className="w-5 h-5 cursor-pointer"
+              onClick={openShareDialog}
+              title={t('Share conversation')!}
+            />
             <img
               src={clearIcon}
               className={cx('w-5 h-5', props.generating ? 'cursor-not-allowed' : 'cursor-pointer')}
               onClick={resetConversation}
+              title={t('Clear conversation')!}
             />
-            <img src={historyIcon} className="w-5 h-5 cursor-pointer" onClick={openHistoryDialog} />
+            <img
+              src={historyIcon}
+              className="w-5 h-5 cursor-pointer"
+              onClick={openHistoryDialog}
+              title={t('View history')!}
+            />
           </div>
         </div>
         <ChatMessageList botId={props.botId} messages={props.messages} className={marginClass} />
-        <div className={cx('mt-3 flex flex-col', marginClass, mode === 'full' ? 'mb-3' : 'mb-[10px]')}>
+        <div className={cx('mt-3 flex flex-col', marginClass, mode === 'full' ? 'mb-3' : 'mb-[5px]')}>
           <div className={cx('flex flex-row items-center gap-[5px]', mode === 'full' ? 'mb-3' : 'mb-0')}>
             {mode === 'compact' && <span className="font-medium text-xs text-light-text">Send to {botInfo.name}</span>}
             <hr className="grow border-primary-border" />
@@ -97,7 +108,7 @@ const ConversationPanel: FC<Props> = (props) => {
           <ChatMessageInput
             mode={mode}
             disabled={props.generating}
-            placeholder={mode === 'compact' ? '' : 'Ask me anything...'}
+            placeholder={mode === 'compact' ? '' : undefined}
             onSubmit={onSubmit}
             autoFocus={mode === 'full'}
             actionButton={
